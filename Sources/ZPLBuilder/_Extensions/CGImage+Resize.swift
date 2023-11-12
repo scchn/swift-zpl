@@ -5,7 +5,8 @@
 //  Created by chen on 2023/11/10.
 //
 
-import CoreImage
+#if canImport(CoreGraphics)
+import CoreGraphics
 
 extension CGImage {
     func resized(width: Int, height: Int) -> CGImage? {
@@ -28,3 +29,4 @@ extension CGImage {
         return ctx.makeImage()
     }
 }
+#endif
