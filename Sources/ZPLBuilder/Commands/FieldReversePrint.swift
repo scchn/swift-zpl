@@ -16,4 +16,7 @@ import Foundation
 /// When multiple ^FR commands are going to be used, it might be more convenient to use the ^LR command.
 public struct FieldReversePrint: ZPLCommandConvertible {
     public let command = "^FR"
+    
+    public init() {
+    }
 }

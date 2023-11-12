@@ -34,7 +34,8 @@ public struct LabelHome: ZPLCommandConvertible {
         "^LH\(x),\(y)"
     }
     
-    /// <#Description#>
+    /// Label Home.
+    /// 
     /// - Parameters:
     ///   - x: x-axis position (in dots). 0 to 32000.
     ///   - y: y-axis position (in dots). 0 to 32000.

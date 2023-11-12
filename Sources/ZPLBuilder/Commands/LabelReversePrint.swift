@@ -26,7 +26,7 @@ public struct LabelReversePrint: ZPLCommandConvertible {
         "^LR\(isEnabled ? "Y" : "N")"
     }
     
-    public init(isEnabled: Bool) {
-        self.isEnabled = isEnabled
+    public init(enabled: Bool) {
+        self.isEnabled = enabled
     }
 }
