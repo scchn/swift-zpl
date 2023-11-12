@@ -22,8 +22,24 @@ import UIKit
 public struct GraphicField: ZPLCommandConvertible {
     public let command: String
     
+    private init() {
+        command = ""
+    }
+    
     public init(cgImage: CGImage, size: CGSize) {
         self.command = cgImage.zplCommand(width: Int(size.width), height: Int(size.height)) ?? ""
+    }
+    
+    public init(cgImage: CGImage, width: Int) {
+        let height = Int(Double(width) * Double(cgImage.height) / Double(cgImage.width))
+        
+        self.command = cgImage.zplCommand(width: width, height: height) ?? ""
+    }
+    
+    public init(cgImage: CGImage, height: Int) {
+        let width = Int(Double(height) * Double(cgImage.width) / Double(cgImage.height))
+        
+        self.command = cgImage.zplCommand(width: width, height: height) ?? ""
     }
 }
 #endif
@@ -31,17 +47,53 @@ public struct GraphicField: ZPLCommandConvertible {
 #if canImport(AppKit)
 extension GraphicField {
     public init(image: NSImage, size: CGSize) {
-        let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil)
-        
-        self.command = cgImage?.zplCommand(width: Int(size.width), height: Int(size.height)) ?? ""
+        if let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
+            self.init(cgImage: cgImage, size: size)
+        } else {
+            self.init()
+        }
+    }
+    
+    public init(image: NSImage, width: Int) {
+        if let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
+            self.init(cgImage: cgImage, width: width)
+        } else {
+            self.init()
+        }
+    }
+    
+    public init(image: NSImage, height: Int) {
+        if let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
+            self.init(cgImage: cgImage, height: height)
+        } else {
+            self.init()
+        }
     }
 }
 #elseif canImport(UIKit)
 extension GraphicField {
     public init(image: UIImage, size: CGSize) {
-        let cgImage = image.cgImage
-        
-        self.command = cgImage?.zplCommand(width: Int(size.width), height: Int(size.height)) ?? ""
+        if let cgImage = image.cgImage {
+            self.init(cgImage: cgImage, size: size)
+        } else {
+            self.init()
+        }
+    }
+    
+    public init(image: UIImage, width: Int) {
+        if let cgImage = image.cgImage {
+            self.init(cgImage: cgImage, width: width)
+        } else {
+            self.init()
+        }
+    }
+    
+    public init(image: UIImage, height: Int) {
+        if let cgImage = image.cgImage {
+            self.init(cgImage: cgImage, height: height)
+        } else {
+            self.init()
+        }
     }
 }
 #endif
