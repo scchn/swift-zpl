@@ -11,14 +11,14 @@ import XCTest
 
 class CGImageTests: XCTestCase {
     func test_resize() {
-        let oldWidth = 1920
-        let oldHeight = 1080
-        let newWidth = 960
-        let newHeight = 540
+        let oldWidth = 100
+        let oldHeight = 50
+        let newWidth = oldWidth / 2
+        let newHeight = oldHeight / 2
+        let oldCGImage = makeCGImage(width: oldWidth, height: oldHeight)
         
-        guard let oldCGImage = makeCGImage(width: oldWidth, height: oldHeight),
-              let newCGImage = oldCGImage.resized(width: newWidth, height: newHeight)
-        else {
+        guard let newCGImage = oldCGImage.resized(width: newWidth, height: newHeight) else {
+            XCTFail()
             return
         }
         
@@ -27,16 +27,15 @@ class CGImageTests: XCTestCase {
     }
 }
 
-func makeCGImage(width: Int, height: Int) -> CGImage? {
+func makeCGImage(width: Int, height: Int) -> CGImage {
+    let size = CGSize(width: width, height: height)
+    
 #if canImport(AppKit)
-        let image = NSImage(size: CGSize(width: width, height: height))
-    
-        return image.cgImage(forProposedRect: nil, context: nil, hints: nil)
+    return NSImage(size: size, flipped: false, drawingHandler: { _ in true })
+        .cgImage(forProposedRect: nil, context: nil, hints: nil)!
 #else
-        let image = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))
-            .image(actions: { _ in })
-    
-        return image.cgImage
+    return UIGraphicsImageRenderer(size: size).image(actions: { _ in })
+        .cgImage!
 #endif
 }
 
