@@ -25,6 +25,7 @@ public struct FieldBlock: ZPLCommandConvertible {
     /// Values: 1 to 9999
     ///
     /// Default: 1 Text exceeding the maximum number of lines overwrites the last line.
+    ///
     /// Changing the font size automatically increases or decreases the size of the block.
     public var lines: Int
     /// Add or delete space between lines (in dots)
@@ -32,12 +33,15 @@ public struct FieldBlock: ZPLCommandConvertible {
     /// Values: -9999 to 9999
     ///
     /// Default: 0 Numbers are considered to be positive unless preceded by a minus sign.
+    ///
     /// Positive values add space; negative values delete space.
-    public var spacing: Int = 0
+    public var spacing: Int
     /// Text justification
     ///
-    /// Default: `.left` If `.justified` is used the last line is left-justified.
-    public var justification: TextJustification = .left
+    /// Default: `.left`.
+    ///
+    /// If `.justified` is used the last line is left-justified.
+    public var justification: TextJustification
     /// Hanging indent (in dots) of the second and remaining lines
     ///
     /// Values: 0 to 9999

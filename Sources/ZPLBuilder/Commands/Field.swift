@@ -15,7 +15,13 @@ public struct Field: ZPLCommandConvertible {
     /// - Parameters:
     ///   - x: x-axis location (in dots). 0 to 32000
     ///   - y: y-axis location (in dots). 0 to 32000
-    ///   - justification: Justification. The parameter is only supported in firmware versions V60.14.x, V50.14.x, or later.
+    ///   - justification: 
+    ///     Justification. 
+    ///
+    ///     Default: last accepted ^FW value or ^FW default.
+    ///
+    ///     The parameter is only supported in firmware versions V60.14.x, V50.14.x, or later.
+    ///
     ///   - body: Field contents.
     public init(x: Int, y: Int, justification: FieldJustification? = nil, @ZPLBuilder body: () -> ZPLComponent) {
         let header = if let justification {

@@ -16,7 +16,8 @@ import Foundation
 /// The ^LH command changes this reference point.
 /// For instance, when working with preprinted labels, use this command to move the reference point below the preprinted area.
 ///
-/// This command affects only fields that come after it. It is recommended to use ^LH as one of the first commands in the label format.
+/// This command affects only fields that come after it. 
+/// It is recommended to use ^LH as one of the first commands in the label format.
 public struct LabelHome: ZPLCommandConvertible {
     /// x-axis position (in dots)
     ///

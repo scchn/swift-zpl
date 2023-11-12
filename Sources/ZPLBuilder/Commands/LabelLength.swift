@@ -11,7 +11,7 @@ import Foundation
 /// This command is necessary when using continuous media (media not divided into separate labels by gaps, spaces, notches, slots, or holes).
 /// This command is not persistent across a power cycle unless a ^JUS is received.
 ///
-/// ~~See also zpl.label_length_always on page 1152. Label Length~~
+/// See also zpl.label_length_always on page 1152.
 ///
 /// **Label Length**
 ///

@@ -25,8 +25,10 @@ public struct FieldData: ZPLCommandConvertible {
     }
     
     /// Field Data.
-    ///
-    /// - Parameter text: Data to be printed (all printers), or a password to be written to a RFID tag (rfid printers). Any data string up to 3072 bytes
+    /// - Parameters:
+    ///   - text:
+    ///     Data to be printed (all printers), or a password to be written to a RFID tag (rfid printers).
+    ///     * Any data string up to 3072 bytes
     public init(text: String) {
         self.text = text
     }

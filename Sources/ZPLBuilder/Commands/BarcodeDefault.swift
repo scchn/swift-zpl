@@ -6,8 +6,8 @@
 //
 
 import Foundation
-
-/// ^BY. The ^BY command is used to change the default values for the module width (in dots), 
+import RegexBuilder
+/// ^BY. The ^BY command is used to change the default values for the module width (in dots),
 /// the wide bar to narrow bar width ratio and the bar code height (in dots). 
 /// It can be used as often as necessary within a label format.
 ///
@@ -24,8 +24,9 @@ public struct BarcodeDefault: ZPLCommandConvertible {
     /// Wide bar to narrow bar width ratio.
     ///
     /// Values: 2.0 to 3.0, in 0.1 increments
+    /// * This parameter has no effect on fixed-ratio bar codes.
     ///
-    /// This parameter has no effect on fixed-ratio bar codes. Default: 3.0
+    /// Default: 3.0
     public var ratio: Int = 3
     /// Bar code height (in dots).
     ///

@@ -16,6 +16,6 @@ public enum TextJustification: String {
     case right = "R"
     /// Justified
     ///
-    /// `.left` If `.justified` is used the last line is left-justified.
+    /// If `.justified` is used the last line is left-justified.
     case justified = "J"
 }

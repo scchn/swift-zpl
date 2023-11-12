@@ -25,6 +25,7 @@ public struct ChangeAlphanumericDefaultFont: ZPLCommandConvertible {
     /// individual character width (in dots)
     ///
     /// Values: 0 to 32000
+    /// 
     /// Initial Value at Power Up: 5 or last permanent saved value
     public var width: Int?
     public var command: String {
