@@ -17,9 +17,11 @@ import Foundation
 ///
 /// In x.14 version of firmware and later, this command allows character remapping when parameter a = 0-13.
 public struct ChangeInternationalEncoding: ZPLCommandConvertible {
+    public typealias Remap = (source: UInt8, destination: UInt8)
+    
     /// Desired character set
     public var characterSet: UInt8
-    public var remapping: [(source: UInt8, destination: UInt8)]
+    public var remapping: [Remap]
     public var command: String {
         "^CI\(characterSet)" + 
         remapping.map { ",\($0),\($1)" }.joined()
@@ -30,7 +32,7 @@ public struct ChangeInternationalEncoding: ZPLCommandConvertible {
     /// - Parameters:
     ///   - characterSet: Desired character set
     ///   - remapping: Remapping sources and destinations.
-    public init(characterSet: UInt8, remapping: (source: UInt8, destination: UInt8)...) {
+    public init(characterSet: UInt8, remapping: Remap...) {
         self.characterSet = characterSet
         self.remapping = remapping
     }

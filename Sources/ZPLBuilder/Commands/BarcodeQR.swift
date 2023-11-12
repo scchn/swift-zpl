@@ -44,9 +44,9 @@ public struct BarcodeQR: ZPLCommandConvertible {
     ///
     /// - Parameters:
     ///   - data: Field data.
-    ///   - size: Magnification factor. 1 to 10.
-    public init(data: String, size: Int) {
+    ///   - magnificationFactor: Magnification factor. 1 to 10.
+    public init(data: String, magnificationFactor: Int) {
         self.data = data
-        self.magnificationFactor = size
+        self.magnificationFactor = magnificationFactor
     }
 }

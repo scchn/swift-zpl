@@ -25,10 +25,10 @@ public struct FieldOrientation: ZPLCommandConvertible {
     /// Default: `.auto` for ``TextBlock`` and left for all other commands
     ///
     /// The parameter is available only with printers with firmware version V60.14.x, V50.14.x, or later.
-    public var alignment: FieldJustification?
+    public var justification: FieldJustification?
     public var command: String {
-        if let alignment {
-            "^FW\(orientation.rawValue),\(alignment.rawValue)"
+        if let justification {
+            "^FW\(orientation.rawValue),\(justification.rawValue)"
         } else {
             "^FW\(orientation.rawValue)"
         }
@@ -38,9 +38,9 @@ public struct FieldOrientation: ZPLCommandConvertible {
     ///
     /// - Parameters:
     ///   - orientation: Rotate field.
-    ///   - alignment: Justification. The parameter is available only with printers with firmware version V60.14.x, V50.14.x, or later.
-    public init(orientation: Orientation, alignment: FieldJustification? = nil) {
+    ///   - justification: Justification. The parameter is available only with printers with firmware version V60.14.x, V50.14.x, or later.
+    public init(orientation: Orientation, justification: FieldJustification? = nil) {
         self.orientation = orientation
-        self.alignment = alignment
+        self.justification = justification
     }
 }
