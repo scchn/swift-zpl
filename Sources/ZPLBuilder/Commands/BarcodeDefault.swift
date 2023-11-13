@@ -29,13 +29,13 @@ public struct BarcodeDefault: ZPLCommandConvertible {
     /// * This parameter has no effect on fixed-ratio bar codes.
     ///
     /// Default: 3.0
-    public var ratio: Int
+    public var ratio: Double
     /// Bar code height (in dots).
     ///
     /// Initial Value at Power Up: 10
     public var height: Int
     public var command: String {
-        "^BY\(moduleWidth),\(ratio),\(height)"
+        "^BY\(moduleWidth),\(String(format: "%.1f", ratio)),\(height)"
     }
     
     /// Barcode field default.
@@ -44,7 +44,7 @@ public struct BarcodeDefault: ZPLCommandConvertible {
     ///   - moduleWidth: Module width (in dots). 1 to 10
     ///   - ratio: Wide bar to narrow bar width ratio. 2.0 to 3.0, in 0.1 increments.
     ///   - height: Bar code height (in dots).
-    public init(moduleWidth: Int, ratio: Int, height: Int) {
+    public init(moduleWidth: Int, ratio: Double, height: Int) {
         self.moduleWidth = moduleWidth
         self.ratio = ratio
         self.height = height

@@ -24,4 +24,9 @@ class ZPLCommandTests: XCTestCase {
         let cmd2 = SetDarkness(10)
         XCTAssertEqual(cmd2.command, "~SD10")
     }
+    
+    func test_by() {
+        let cmd = BarcodeDefault(moduleWidth: 1, ratio: 2, height: 4)
+        XCTAssertEqual(cmd.command, "^BY1,2.0,4")
+    }
 }
