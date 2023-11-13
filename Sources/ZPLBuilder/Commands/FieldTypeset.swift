@@ -10,9 +10,9 @@ import Foundation
 /// The ^FT command sets the field position, relative to the home position of the label designated by the ^LH command.
 /// The typesetting origin of the field is fixed with respect to the contents of the field and does not change with rotation.
 ///
-/// **Field Typeset**
+/// # Field Typeset
 ///
-/// NOTE: The ^FT command is capable of concantination of fields.
+/// The ^FT command is capable of concantination of fields.
 public struct FieldTypeset: ZPLCommandConvertible {
     /// x-axis location (in dots)
     ///

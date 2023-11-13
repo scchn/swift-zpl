@@ -9,7 +9,7 @@ import Foundation
 
 /// The ^CF command sets the default font used in your printer. You can use the ^CF command to simplify your programs.
 ///
-/// **Change Alphanumeric Default Font**
+/// # Change Alphanumeric Default Font
 public struct ChangeAlphanumericDefaultFont: ZPLCommandConvertible {
     /// Specified default font
     ///

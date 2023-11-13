@@ -10,7 +10,7 @@ import Foundation
 /// The ^GD command produces a straight diagonal line on a label. 
 /// This can be used in conjunction with other graphic commands to create a more complex figure.
 ///
-/// **Graphic Diagonal Line**
+/// # Graphic Diagonal Line
 public struct GraphicDiagonalLine: ZPLCommandConvertible {
     /// Box width (in dots)
     ///

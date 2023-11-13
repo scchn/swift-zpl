@@ -10,7 +10,7 @@ import Foundation
 /// The ^FD command defines the data string for a field. 
 /// The field data can be any printable character except those used as command prefixes (^ and ~).
 ///
-/// **Field Data**
+/// # Field Data
 ///
 /// In RFID printers, it can also be used to specify passwords to write to tags.
 public struct FieldData: ZPLCommandConvertible {

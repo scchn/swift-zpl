@@ -8,10 +8,11 @@
 import Foundation
 
 /// The ^GB command is used to draw boxes and lines as part of a label format. 
-/// Boxes and lines are used to highlight important information, divide labels into distinct areas, or to improve the appearance of a label.
+/// Boxes and lines are used to highlight important information, divide labels into distinct areas, 
+/// or to improve the appearance of a label.
 /// The same format command is used for drawing either boxes or lines.
 ///
-/// **Graphic Box**
+/// # Graphic Box
 public struct GraphicBox: ZPLCommandConvertible {
     /// Box width (in dots)
     ///

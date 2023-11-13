@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol ZPLCommandConvertible: ZPLComponent {
-    /// Returns ZPL command string.
+    /// Returns a ZPL command string.
     var command: String {
         get
     }

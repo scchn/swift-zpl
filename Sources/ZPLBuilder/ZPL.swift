@@ -22,6 +22,7 @@ public struct ZPL: ZPLComponent {
         self.commands = body().zpl.commands
     }
     
+    /// Returns a ZPL command string that starts with `^XA` and ends with `^XZ`.
     public var string: String {
         "^XA" + commands.map(\.command).joined() + "^XZ"
     }

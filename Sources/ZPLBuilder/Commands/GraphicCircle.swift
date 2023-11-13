@@ -11,7 +11,7 @@ import Foundation
 /// The command parameters specify the diameter (width) of the circle, outline thickness, and color.
 /// Thickness extends inward from the outline.
 ///
-/// **Graphic Circle**
+/// # Graphic Circle
 public struct GraphicCircle: ZPLCommandConvertible {
     /// Circle diameter (in dots)
     ///

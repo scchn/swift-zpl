@@ -12,7 +12,7 @@ import Foundation
 /// and rotation specified for the text string.
 /// The ^FB command also contains an automatic word-wrap function.
 ///
-/// **Field Block**
+/// # Field Block
 public struct FieldBlock: ZPLCommandConvertible {
     /// Width of text block line (in dots)
     ///

@@ -10,9 +10,9 @@ import Foundation
 /// The ^LS command allows for compatibility with Z-130 printer formats that are set for less than full label width. 
 /// It is used to shift all field positions to the left so the same commands used on a Z-130 or Z-220 Printer can be used on other Zebra printers.
 ///
-/// **Label Shift**
+/// # Label Shift
 ///
-/// IMPORTANT: The ability to save the ^LS command depends on the version of firmware.
+/// - Important: The ability to save the ^LS command depends on the version of firmware.
 public struct LabelShift: ZPLCommandConvertible {
     /// Shift left value (in dots)
     ///

@@ -11,14 +11,14 @@ import Foundation
 /// The text block has an automatic word- wrap function. If the text exceeds the block height, the text is truncated.
 /// This command supports complex text layout features.
 ///
-/// **Text Blocks**
+/// # Text Blocks
 ///
 /// This command is available only for printers with firmware version V60.14.x, V50.14.x, or later. 
 ///
-/// NOTE: ^TB is the preferred command for printing fields or blocks of text, instead of ^FB.
+/// - Remark: ^TB is the preferred command for printing fields or blocks of text, instead of ^FB.
 ///
-/// Comments: Facts about the ^TB command:
-/// * Justification of ^TB command comes from ^FO, ^FT, or ^FN command. 
+/// ## Facts about the ^TB command
+/// * Justification of ^TB command comes from ^FO, ^FT, or ^FN command.
 ///   If no justification is determined then the default is auto justification.
 /// * Data between `<` and `>` is processed as an escape sequence; for example, `<< >` will print `<`.
 /// * The ^TB command has an automatic word-wrap function. Soft hyphens do not print and are not used as a line break position.

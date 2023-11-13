@@ -24,7 +24,7 @@ extension GraphicSymbol {
 
 /// The ^GS command enables you to generate the registered trademark, copyright symbol, and other symbols.
 ///
-/// **Graphic Symbol**
+/// # Graphic Symbol
 public struct GraphicSymbol: ZPLCommandConvertible {
     /// Symbol
     public var symbol: Symbol

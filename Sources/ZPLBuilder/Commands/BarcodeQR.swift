@@ -10,7 +10,7 @@ import Foundation
 /// The ^BQ command produces a matrix symbology consisting of an array of nominally square modules arranged in an overall square pattern. 
 /// A unique pattern at three of the symbol’s four corners assists in determining bar code size, position, and inclination.
 ///
-/// **QR Code Bar Code**
+/// # QR Code Bar Code
 ///
 /// A wide range of symbol sizes is possible, along with four levels of error correction. 
 /// User-specified module dimensions provide a wide variety of symbol production techniques.

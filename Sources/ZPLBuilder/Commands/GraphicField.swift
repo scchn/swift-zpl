@@ -12,7 +12,7 @@ import CoreGraphics
 /// This command follows the conventions for any other field, meaning a field orientation is included.
 /// The graphic field data can be placed at any location within the bitmap space.
 ///
-/// **Graphic Field**
+/// # Graphic Field
 public struct GraphicField: ZPLCommandConvertible {
     public let command: String
     

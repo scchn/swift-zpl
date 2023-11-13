@@ -13,10 +13,12 @@ import Foundation
 ///
 /// See also zpl.label_length_always on page 1152.
 ///
-/// **Label Length**
+/// # Label Length
 ///
-/// To affect the current label and be compatible with existing printers, ^LL must come before the first ^FS (Field Separator) command. 
-/// Once you have issued ^LL, the setting is retained until you turn off the printer or send a new ^LL command.
+/// To affect the current label and be compatible with existing printers, 
+/// ^LL must come before the first ^FS (Field Separator) command.
+///
+/// - Attention: Once you have issued ^LL, the setting is retained until you turn off the printer or send a new ^LL command.
 public struct LabelLength: ZPLCommandConvertible {
     /// Defines the label length.
     ///

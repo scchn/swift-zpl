@@ -7,9 +7,10 @@
 
 import Foundation
 
-/// The ^FP command allows vertical and reverse formatting of the font field, commonly used for printing Asian fonts.
+/// The ^FP command allows vertical and reverse formatting of the font field,
+/// commonly used for printing Asian fonts.
 ///
-/// **Field Parameter**
+/// # Field Parameter
 public struct FieldParameter: ZPLCommandConvertible {
     /// Direction
     ///

@@ -11,10 +11,12 @@ import Foundation
 /// Fields can be rotated 0, 90, 180, or 270 degrees clockwise by using this command.
 /// In x.14, justification can be left, right, or auto.
 ///
-/// **Field Orientation**
+/// # Field Orientation
 ///
 /// The ^FW command affects only fields that follow it.
-/// Once you have issued a ^FW command, the setting is retained until you turn off the printer or send a new ^FW command to the printer.
+///
+/// - Attention: Once you have issued a ^FW command, 
+///   the setting is retained until you turn off the printer or send a new ^FW command to the printer.
 public struct FieldOrientation: ZPLCommandConvertible {
     /// Rotate field
     ///

@@ -9,7 +9,7 @@ import Foundation
 
 /// The ^PW command allows you to set the print width.
 ///
-/// **Print Width**
+/// # Print Width
 public struct PrintWidth: ZPLCommandConvertible {
     /// Label width (in dots)
     ///

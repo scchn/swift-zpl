@@ -9,7 +9,7 @@ import Foundation
 
 /// The ^SE command is used to select the desired ZPL or ZPL II encoding table.
 ///
-/// **Select Encoding Table**
+/// # Select Encoding Table
 public struct SelectEncodingTable: ZPLCommandConvertible {
     /// Location of encoding table
     public var deviceLocation: DeviceLocation

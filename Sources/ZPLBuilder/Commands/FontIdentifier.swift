@@ -10,14 +10,15 @@ import Foundation
 /// All built-in fonts are referenced using a one-character identifier. 
 /// The ^CW command assigns a single alphanumeric character to a font stored in DRAM, memory card, EPROM, or Flash.
 ///
-/// **Font Identifier**
+/// # Font Identifier
 ///
 /// If the assigned character is the same as that of a built-in font, the downloaded font is used in place of the built-in font. 
 /// The new font is printed on the label wherever the format calls for the built-in font.
 /// If used in place of a built-in font, the change is in effect only until power is turned off.
 ///
-/// If the assigned character is different, the downloaded font is used as an additional font. 
-/// The assignment remains in effect until a new command is issued or the printer is turned off.
+/// If the assigned character is different, the downloaded font is used as an additional font.
+///
+/// - Attention: The assignment remains in effect until a new command is issued or the printer is turned off.
 public struct FontIdentifier: ZPLCommandConvertible {
     /// Letter of existing font to be substituted, or new font to be added
     ///

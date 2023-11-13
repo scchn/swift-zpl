@@ -9,7 +9,7 @@ import Foundation
 
 /// The ^GE command produces an ellipse in the label format.
 ///
-/// **Graphic Ellipse**
+/// # Graphic Ellipse
 public struct GraphicEllipse: ZPLCommandConvertible {
     /// Ellipse width (in dots)
     ///
