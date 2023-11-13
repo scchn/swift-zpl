@@ -3,16 +3,7 @@
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fscchn%2Fswift-zpl%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/scchn/swift-zpl)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fscchn%2Fswift-zpl%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/scchn/swift-zpl)
 
-**Swift ZPL** provides a declarative interface to write ZPL faster, easier and safer.
-
-```swift
-ZPL {
-    LabelHome(x: 0, y: 0)
-    Field(x: 50, y: 50) {
-        FieldData(text: "swift-zpl")
-    }
-}
-```
+**Swift ZPL** provides a declarative interface to write [ZPL](https://developer.zebra.com/products/printers/zpl) faster, easier and safer.
 
 # Usage
 
@@ -23,11 +14,11 @@ let zpl = ZPL {
     LabelHome(x: 0, y: 0)
     ChangeAlphanumericDefaultFont(font: "A", height: 50)
     Field(x: 50, y: 50) {
-        FieldData(text: "hello")
+        FieldData(text: "Swift ZPL")
     }
 }
 
-print(zpl.string) // ^XA^LH0,0^CFA,50,0^FO50,50^FDhello^FS^XZ
+print(zpl.string()) // ^XA^LH0,0^CFA,50,0^FO50,50^FDhello^FS^XZ
 ```
 
 [See All Commands](https://github.com/scchn/swift-zpl/tree/main/Sources/ZPLBuilder/Commands)
@@ -80,7 +71,7 @@ ZPL {
 ZPL {
     LabelHome(x: 0, y: 0)
     Field(x: 50, y: 50) {
-        BarcodeQR(data: "hello", size: 10)
+        BarcodeQR(data: "hello", magnificationFactor: 10)
     }
 }
 ```
@@ -126,7 +117,7 @@ let zpl = ZPL {
 
 This package currently only contains a few commands, if you can't find what you need:
 
-**Write a new command:**
+You can create a new command with just a few lines of code:
 
 ```swift
 struct NewCommand: ZPLCommandConvertible {
@@ -138,8 +129,6 @@ struct NewCommand: ZPLCommandConvertible {
 ZPL {
     NewCommand()
 }
-``` 
+```
 
-**Open a pull request:**
-
-Open a pull request to add a new command or improve/fix existing ones.
+or open a pull request to add a new command or improve/fix existing ones.
