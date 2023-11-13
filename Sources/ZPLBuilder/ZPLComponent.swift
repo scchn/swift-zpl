@@ -8,6 +8,7 @@
 import Foundation
 
 public protocol ZPLComponent {
+    /// The ZPL command represented by this component.
     var zpl: ZPL {
         get
     }

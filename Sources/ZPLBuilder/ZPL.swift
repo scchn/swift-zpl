@@ -23,7 +23,11 @@ public struct ZPL: ZPLComponent {
     }
     
     /// Returns a ZPL command string that starts with `^XA` and ends with `^XZ`.
-    public var string: String {
-        "^XA" + commands.map(\.command).joined() + "^XZ"
+    ///
+    /// - Parameter lineSeparated: Indicates whether the output string will be formatted by having each command separated by a new line.
+    public func string(lineSeparated: Bool = false) -> String {
+        let commandStrings = ["^XA"] + commands.map(\.command) + ["^XZ"]
+        
+        return commandStrings.joined(separator: lineSeparated ? "\n" : "")
     }
 }

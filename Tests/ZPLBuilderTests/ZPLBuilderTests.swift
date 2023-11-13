@@ -10,6 +10,7 @@ final class ZPLBuilderTests: XCTestCase {
         }
         let body = ZPL {
             Field(x: 0, y: 0) {
+                FieldBlock(width: 1, lines: 1)
                 FieldData(text: "hello")
             }
         }
@@ -17,7 +18,13 @@ final class ZPLBuilderTests: XCTestCase {
             settings
             body
         }
-        let types: [ZPLCommandConvertible.Type] = [LabelHome.self, PrintWidth.self, LabelLength.self, Field.self, FieldData.self]
+        let commands = zpl.commands
+        let types: [ZPLCommandConvertible.Type] = (
+            [LabelHome.self, PrintWidth.self, LabelLength.self] +
+            [FieldOrigin.self, FieldBlock.self, FieldData.self, FieldSeparator.self]
+        )
+        
+        XCTAssertEqual(commands.count, types.count)
         
         for (index, command) in zpl.commands.enumerated() {
             XCTAssertTrue(type(of: command) == types[index])

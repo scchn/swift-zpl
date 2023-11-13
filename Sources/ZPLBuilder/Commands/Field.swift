@@ -8,6 +8,7 @@
 import Foundation
 
 public struct Field: ZPLCommandConvertible {
+    public let zpl: ZPL
     public let command: String
     
     /// Field.
@@ -24,14 +25,11 @@ public struct Field: ZPLCommandConvertible {
     ///
     ///   - body: Field contents.
     public init(x: Int, y: Int, justification: FieldJustification? = nil, @ZPLBuilder body: () -> ZPLComponent) {
-        let header = if let justification {
-            "^FO\(x),\(y),\(justification.rawValue)"
-        } else {
-            "^FO\(x),\(y)"
-        }
-        let body = body().zpl.commands.map(\.command).joined()
-        let footer = "^FS"
+        let header = FieldOrigin(x: x, y: y, justification: justification)
+        let body = body().zpl.commands
+        let footer = FieldSeparator()
         
-        command = header + body + footer
+        self.zpl = .init(commands: [header] + body + [footer])
+        self.command = header.command + body.map(\.command).joined() + footer.command
     }
 }
