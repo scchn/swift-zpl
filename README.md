@@ -82,6 +82,30 @@ ZPL {
 
 ```swift
 let image: UIImage = ...
+let labelWidth = 72 * 8
+let labelHeight = 72 * 8
+let zpl = ZPL {
+    LabelHome(x: 0, y: 0)
+    LabelReversePrint(enabled: true)
+    
+    let imageWidth = labelWidth / 2
+    
+    Field(x: 0, y: 0) {
+        GraphicField(image: image, width: imageWidth)
+    }
+    Field(x: imageWidth, y: 0) {
+        GraphicField(image: image, width: imageWidth)
+    }
+    Field(x: imageWidth, y: 0) {
+        GraphicBox(width: imageWidth, height: imageWidth, lineWidth: imageWidth)
+    }
+}
+```
+
+![image](https://github.com/scchn/swift-zpl/blob/main/Images/image.png)
+
+```swift
+let image: UIImage = ...
 let labelWidth = Int(203 * 2.8)
 let labelHeight = 203 * 3
 let settings = ZPL {
@@ -103,6 +127,7 @@ let body = ZPL {
     Field(x: 0, y: imageHeight) {
         FieldBlock(width: labelWidth, lines: 1, justification: .center)
         FieldData(text: "Swift")
+        Hyphen.return
     }
 }
 let zpl = ZPL {
@@ -131,4 +156,4 @@ ZPL {
 }
 ```
 
-or open a pull request to add a new command or improve/fix existing ones.
+or create a pull request to add a new command or improve/fix existing ones.
