@@ -29,4 +29,12 @@ class ZPLCommandTests: XCTestCase {
         let cmd = BarcodeDefault(moduleWidth: 1, ratio: 2, height: 4)
         XCTAssertEqual(cmd.command, "^BY1,2.0,4")
     }
+    
+    func test_field_hexadecimal() {
+        let cmd1 = FieldHexadecimalIndicator(indicator: "\\")
+        XCTAssertEqual(cmd1.command, "^FH\\")
+        
+        let cmd2 = FieldHexadecimal(indicator: "\\", code: 0x7E)
+        XCTAssertEqual(cmd2.command, "\\7E")
+    }
 }
