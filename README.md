@@ -89,12 +89,13 @@ let zpl = ZPL {
     LabelReversePrint(enabled: true)
     
     let imageWidth = labelWidth / 2
+    let imageSize = ZPLGeometryUtils.size(aspectRatio: image.size, width: imageWidth)
     
     Field(x: 0, y: 0) {
-        GraphicField(image: image, width: imageWidth)
+        GraphicField(image: image, size: imageSize, isCompressed: true)
     }
     Field(x: imageWidth, y: 0) {
-        GraphicField(image: image, width: imageWidth)
+        GraphicField(image: image, size: imageSize, isCompressed: true)
     }
     Field(x: imageWidth, y: 0) {
         GraphicBox(width: imageWidth, height: imageWidth, lineWidth: imageWidth)
@@ -118,7 +119,7 @@ let body = ZPL {
         GraphicBox(width: labelWidth / 2, height: labelHeight, lineWidth: labelWidth / 2)
     }
     
-    let imageHeight = Int(Double(labelWidth) * image.size.height / image.size.width)
+    let imageHeight = ZPLGeometryUtils.height(aspectRatio: image.size, width: labelWidth)
     
     Field(x: 0, y: 0) {
         GraphicField(image: image, size: .init(width: labelWidth, height: imageHeight))
