@@ -14,7 +14,8 @@ import CoreGraphics
 
 extension CGImage {
     func zplCommand(width: Int, height: Int, isCompressed: Bool) -> String? {
-        guard let (_body, bytesPerRow, totalBytes) = isCompressed
+        guard self.width > 0 && self.height > 0 && width > 0 && height > 0,
+              let (_body, bytesPerRow, totalBytes) = isCompressed
                 ? makeCompressedBody(width: width, height: height)
                 : makeBody(width: width, height: height)
         else {
@@ -29,24 +30,27 @@ extension CGImage {
 
 extension CGImage {
     private func makeBody(width: Int, height: Int) -> (image: String, bytesPerRow: Int, totalBytes: Int)? {
-        guard let cgImage = resized(width: width, height: height),
+        let _cgImage = width == self.width && height == self.height
+            ? self
+            : resized(width: width, height: height)
+        
+        guard let cgImage = _cgImage,
               let imageData = cgImage.dataProvider?.data,
               let imagePtr = CFDataGetBytePtr(imageData)
         else {
             return nil
         }
-
+        
         // ----- Constants -----
         let blackThreshold = 380
         let componentValueSize = 8
         // ---------------------
         
         let bytesPerPixel = cgImage.bitsPerPixel / 8
-        let elementsPerRow = width / componentValueSize + (width.isMultiple(of: componentValueSize) ? 0 : 1)
-        let totalBytes = elementsPerRow * height
+        let bytesPerRow = width / componentValueSize + (width.isMultiple(of: componentValueSize) ? 0 : 1)
+        let totalBytes = bytesPerRow * height
         var body = ""
-
-
+        
         for y in 0..<height {
             let baseOffset = y * cgImage.bytesPerRow
             var componentValue = 0
@@ -87,7 +91,7 @@ extension CGImage {
             body.append("\n")
         }
         
-        return (body, elementsPerRow, totalBytes)
+        return (body, bytesPerRow, totalBytes)
     }
 }
 
@@ -95,7 +99,11 @@ extension CGImage {
 
 extension CGImage {
     private func makeCompressedBody(width: Int, height: Int) -> (image: String, bytesPerRow: Int, totalBytes: Int)? {
-        guard let cgImage = resized(width: width, height: height),
+        let _cgImage = width == self.width && height == self.height
+            ? self
+            : resized(width: width, height: height)
+        
+        guard let cgImage = _cgImage,
               let imageData = cgImage.dataProvider?.data,
               let imagePtr = CFDataGetBytePtr(imageData)
         else {
@@ -109,15 +117,15 @@ extension CGImage {
         
         let bytesPerPixel = cgImage.bitsPerPixel / 8
         let divisable = width.isMultiple(of: componentValueSize)
-        let elementsPerRow = width / componentValueSize + (divisable ? 0 : 1)
-        let totalBytes = elementsPerRow * height
+        let bytesPerRow = width / componentValueSize + (divisable ? 0 : 1)
+        let totalBytes = bytesPerRow * height
         
-        let maxRepeatCount = elementsPerRow * 2
+        let maxRepeatCount = bytesPerRow * 2
         var repeatCount = 1
         var aux: Character?
         var currLine: [Character] = []
         var prevLine: [Character] = []
-        var result: [Character] = []
+        var body: [Character] = []
         
         for y in 0..<height {
             let baseOffset = y * cgImage.bytesPerRow
@@ -139,27 +147,23 @@ extension CGImage {
                 
                 pos += 1
                 
-                if pos == 4 || x == width - 1 {
+                if pos == componentValueSize || x == width - 1 {
                     defer {
                         componentValue = 0
                         pos = 0
                     }
                     
-                    let code: String
-                    
-                    if x == width - 1 && !divisable {
+                    if pos != componentValueSize {
                         componentValue <<= componentValueSize - pos
-                        code = if componentValue <= 15 {
-                            "0" + String(componentValue, radix: 16, uppercase: true)
-                        } else {
-                            String(componentValue, radix: 16, uppercase: true)
-                        }
-                    } else {
-                        componentValue <<= 4 - pos
-                        code = String(componentValue, radix: 16, uppercase: true)
                     }
                     
-                    for now in code {
+                    let component = if componentValue <= 15 {
+                        "0" + String(componentValue, radix: 16, uppercase: true)
+                    } else {
+                        String(componentValue, radix: 16, uppercase: true)
+                    }
+                    
+                    for now in component {
                         guard let _aux = aux else {
                             aux = now
                             continue
@@ -180,24 +184,24 @@ extension CGImage {
                 currLine.append(",")
             } else if repeatCount >= maxRepeatCount && aux == "F" {
                 currLine.append("!")
-            } else {
-                currLine.append(contentsOf: encodedComponent(for: aux!, repeatCount: repeatCount))
+            } else if let aux {
+                currLine.append(contentsOf: encodedComponent(for: aux, repeatCount: repeatCount))
             }
             
             repeatCount = 1
             aux = nil
             
             if currLine == prevLine {
-                result.append(":")
+                body.append(":")
             } else {
-                result.append(contentsOf: currLine)
+                body.append(contentsOf: currLine)
             }
             
             prevLine = currLine
             currLine.removeAll()
         }
         
-        return (String(result), elementsPerRow, totalBytes)
+        return (String(body), bytesPerRow, totalBytes)
     }
     
     private func encodedComponent(for component: Character, repeatCount: Int) -> [Character] {
