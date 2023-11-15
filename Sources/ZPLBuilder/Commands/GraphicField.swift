@@ -20,20 +20,11 @@ public struct GraphicField: ZPLCommandConvertible {
         command = ""
     }
     
-    public init(cgImage: CGImage, size: CGSize) {
-        self.command = cgImage.zplCommand(width: Int(size.width), height: Int(size.height)) ?? ""
-    }
-    
-    public init(cgImage: CGImage, width: Int) {
-        let height = Int(Double(width) * Double(cgImage.height) / Double(cgImage.width))
+    public init(cgImage: CGImage, size: CGSize, isCompressed: Bool = false) {
+        let width = Int(size.width)
+        let height = Int(size.height)
         
-        self.command = cgImage.zplCommand(width: width, height: height) ?? ""
-    }
-    
-    public init(cgImage: CGImage, height: Int) {
-        let width = Int(Double(height) * Double(cgImage.width) / Double(cgImage.height))
-        
-        self.command = cgImage.zplCommand(width: width, height: height) ?? ""
+        self.command = cgImage.zplCommand(width: width, height: height, isCompressed: isCompressed) ?? ""
     }
 }
 #endif
@@ -42,25 +33,9 @@ public struct GraphicField: ZPLCommandConvertible {
 import AppKit
 
 extension GraphicField {
-    public init(image: NSImage, size: CGSize) {
+    public init(image: NSImage, size: CGSize, isCompressed: Bool = false) {
         if let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
-            self.init(cgImage: cgImage, size: size)
-        } else {
-            self.init()
-        }
-    }
-    
-    public init(image: NSImage, width: Int) {
-        if let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
-            self.init(cgImage: cgImage, width: width)
-        } else {
-            self.init()
-        }
-    }
-    
-    public init(image: NSImage, height: Int) {
-        if let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
-            self.init(cgImage: cgImage, height: height)
+            self.init(cgImage: cgImage, size: size, isCompressed: isCompressed)
         } else {
             self.init()
         }
@@ -70,25 +45,9 @@ extension GraphicField {
 import UIKit
 
 extension GraphicField {
-    public init(image: UIImage, size: CGSize) {
+    public init(image: UIImage, size: CGSize, isCompressed: Bool = false) {
         if let cgImage = image.cgImage {
-            self.init(cgImage: cgImage, size: size)
-        } else {
-            self.init()
-        }
-    }
-    
-    public init(image: UIImage, width: Int) {
-        if let cgImage = image.cgImage {
-            self.init(cgImage: cgImage, width: width)
-        } else {
-            self.init()
-        }
-    }
-    
-    public init(image: UIImage, height: Int) {
-        if let cgImage = image.cgImage {
-            self.init(cgImage: cgImage, height: height)
+            self.init(cgImage: cgImage, size: size, isCompressed: isCompressed)
         } else {
             self.init()
         }
