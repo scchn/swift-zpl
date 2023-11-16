@@ -6,23 +6,21 @@
 //
 
 import Foundation
+import AVFoundation.AVGeometry
 
 public enum ZPLGeometryUtils {
-    public static func width(aspectRatio: CGSize, height: Int) -> Int {
-        Int(Double(height) * Double(aspectRatio.width) / Double(aspectRatio.height))
-    }
-    
-    public static func height(aspectRatio: CGSize, width: Int) -> Int {
-        Int(Double(width) * Double(aspectRatio.height) / Double(aspectRatio.width))
-    }
-    
-    public static func size(aspectRatio: CGSize, height: Int) -> CGSize {
-        let width = width(aspectRatio: aspectRatio, height: height)
+    public static func size(aspectRatio: CGSize, fillWidth width: Int) -> CGSize {
+        let height = Int(Double(width) * Double(aspectRatio.height) / Double(aspectRatio.width))
         return .init(width: width, height: height)
     }
     
-    public static func size(aspectRatio: CGSize, width: Int) -> CGSize {
-        let height = height(aspectRatio: aspectRatio, width: width)
+    public static func size(aspectRatio: CGSize, fillHeight height: Int) -> CGSize {
+        let width = Int(Double(height) * Double(aspectRatio.width) / Double(aspectRatio.height))
         return .init(width: width, height: height)
+    }
+    
+    public static func size(aspectRatio: CGSize, fitBoundingSize boundingSize: CGSize) -> CGSize {
+        let rect = CGRect(origin: .zero, size: boundingSize)
+        return AVMakeRect(aspectRatio: aspectRatio, insideRect: rect).size
     }
 }

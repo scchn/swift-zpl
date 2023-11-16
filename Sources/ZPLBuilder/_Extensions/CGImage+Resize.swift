@@ -5,7 +5,6 @@
 //  Created by chen on 2023/11/10.
 //
 
-#if canImport(CoreGraphics)
 import CoreGraphics
 
 extension CGImage {
@@ -29,4 +28,3 @@ extension CGImage {
         return ctx.makeImage()
     }
 }
-#endif

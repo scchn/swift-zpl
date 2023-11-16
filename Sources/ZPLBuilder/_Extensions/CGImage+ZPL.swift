@@ -5,7 +5,6 @@
 //  Created by chen on 2023/11/10.
 //
 
-#if canImport(CoreGraphics)
 import CoreGraphics
 
 /*
@@ -261,4 +260,3 @@ private let encodingTable: [Int: Character] = [
     380: "y",
     400: "z",
 ]
-#endif
