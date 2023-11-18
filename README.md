@@ -18,10 +18,12 @@ let zpl = ZPL {
     }
 }
 
-print(zpl.string()) // ^XA^LH0,0^CFA,50,0^FO50,50^FDhello^FS^XZ
+print(zpl.string()) // ^XA^LH0,0^CFA,50,0^FO50,50^FDSwift ZPL^FS^XZ
 ```
 
-[See All Commands](https://github.com/scchn/swift-zpl/tree/main/Sources/ZPLBuilder/Commands)
+[Commands](https://github.com/scchn/swift-zpl/tree/main/Sources/ZPLBuilder/Commands)
+
+[Utilities](https://github.com/scchn/swift-zpl/tree/main/Sources/ZPLBuilder/Utils)
 
 # Examples
 
@@ -82,23 +84,31 @@ ZPL {
 
 ```swift
 let image: UIImage = ...
-let labelWidth = 72 * 8
-let labelHeight = 72 * 8
+let labelWidth = 4 * 203
+let labelHeight = 6 * 203
+let imageEncoder = ZPLImageEncoder()
+
+imageEncoder.isCompressed = true
+
 let zpl = ZPL {
     LabelHome(x: 0, y: 0)
     LabelReversePrint(enabled: true)
     
     let imageWidth = labelWidth / 2
-    let imageSize = ZPLGeometryUtils.size(aspectRatio: image.size, width: imageWidth)
+    let imageSize = ZPLGeometryUtils.size(aspectRatio: image.size, fillWidth: imageWidth)
     
     Field(x: 0, y: 0) {
-        GraphicField(image: image, size: imageSize, isCompressed: true)
+        GraphicField(image: image, size: imageSize, encoder: imageEncoder)
     }
     Field(x: imageWidth, y: 0) {
-        GraphicField(image: image, size: imageSize, isCompressed: true)
+        GraphicField(image: image, size: imageSize, encoder: imageEncoder)
     }
     Field(x: imageWidth, y: 0) {
-        GraphicBox(width: imageWidth, height: imageWidth, lineWidth: imageWidth)
+        GraphicBox(
+            width: imageWidth, 
+            height: Int(imageSize.height),
+            lineWidth: Int(min(imageSize.width, imageSize.height))
+        )
     }
 }
 ```
@@ -107,8 +117,8 @@ let zpl = ZPL {
 
 ```swift
 let image: UIImage = ...
-let labelWidth = Int(203 * 2.8)
-let labelHeight = 203 * 3
+let labelWidth = 72 * 8
+let labelHeight = 72 * 9
 let settings = ZPL {
     LabelHome(x: 0, y: 0)
     LabelReversePrint(enabled: true)
@@ -119,13 +129,13 @@ let body = ZPL {
         GraphicBox(width: labelWidth / 2, height: labelHeight, lineWidth: labelWidth / 2)
     }
     
-    let imageHeight = ZPLGeometryUtils.height(aspectRatio: image.size, width: labelWidth)
+    let imageSize = ZPLGeometryUtils.size(aspectRatio: image.size, fillWidth: labelWidth)
     
     Field(x: 0, y: 0) {
-        GraphicField(image: image, size: .init(width: labelWidth, height: imageHeight))
+        GraphicField(image: image, size: imageSize)
     }
     
-    Field(x: 0, y: imageHeight) {
+    Field(x: 0, y: Int(imageSize.height)) {
         FieldBlock(width: labelWidth, lines: 1, justification: .center)
         FieldData(text: "Swift")
         Hyphen.return
@@ -158,3 +168,7 @@ ZPL {
 ```
 
 or create a pull request to add a new command or improve/fix existing ones.
+
+# Preview
+
+[Labelary Online ZPL Viewer](https://labelary.com/viewer.html)
