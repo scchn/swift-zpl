@@ -19,8 +19,16 @@ public enum ZPLGeometryUtils {
         return .init(width: width, height: height)
     }
     
-    public static func size(aspectRatio: CGSize, fitBoundingSize boundingSize: CGSize) -> CGSize {
+    public static func rect(aspectRatio: CGSize, insideRect boundingRect: CGRect) -> CGRect {
+        AVMakeRect(aspectRatio: aspectRatio, insideRect: boundingRect)
+    }
+    
+    public static func rect(aspectRatio: CGSize, fitBoundingSize boundingSize: CGSize) -> CGRect {
         let rect = CGRect(origin: .zero, size: boundingSize)
-        return AVMakeRect(aspectRatio: aspectRatio, insideRect: rect).size
+        return AVMakeRect(aspectRatio: aspectRatio, insideRect: rect)
+    }
+    
+    public static func size(aspectRatio: CGSize, fitBoundingSize boundingSize: CGSize) -> CGSize {
+        rect(aspectRatio: aspectRatio, fitBoundingSize: boundingSize).size
     }
 }

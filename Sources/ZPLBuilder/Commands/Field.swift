@@ -9,7 +9,9 @@ import Foundation
 
 public struct Field: ZPLCommandConvertible {
     public let zpl: ZPL
-    public let command: String
+    public var command: String {
+        zpl.commands.map(\.command).joined()
+    }
     
     /// Field.
     ///
@@ -30,6 +32,5 @@ public struct Field: ZPLCommandConvertible {
         let footer = FieldSeparator()
         
         self.zpl = .init(commands: [header] + body + [footer])
-        self.command = header.command + body.map(\.command).joined() + footer.command
     }
 }

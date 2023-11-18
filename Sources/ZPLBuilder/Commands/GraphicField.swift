@@ -13,17 +13,26 @@ import CoreGraphics
 ///
 /// # Graphic Field
 public struct GraphicField: ZPLCommandConvertible {
-    public let command: String
-    
-    private init() {
-        command = ""
+    public let encoder: ZPLImageEncoder
+    public var cgImage: CGImage?
+    public var size: CGSize?
+    public var command: String {
+        guard let cgImage,
+              let encoded = encoder.encode(cgImage: cgImage, targetSize: size)
+        else {
+            return ""
+        }
+        return "^GFA,\(encoded.totalBytes),\(encoded.totalBytes),\(encoded.bytesPerRow),\(encoded.data)"
     }
     
-    public init(cgImage: CGImage, size: CGSize, isCompressed: Bool = false) {
-        let width = Int(size.width)
-        let height = Int(size.height)
-        
-        self.command = cgImage.zplCommand(width: width, height: height, isCompressed: isCompressed) ?? ""
+    private init(size: CGSize?, encoder: ZPLImageEncoder) {
+        self.encoder = encoder
+    }
+    
+    public init(cgImage: CGImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .init()) {
+        self.encoder = encoder
+        self.cgImage = cgImage
+        self.size = size
     }
 }
 
@@ -31,11 +40,11 @@ public struct GraphicField: ZPLCommandConvertible {
 import AppKit
 
 extension GraphicField {
-    public init(image: NSImage, size: CGSize, isCompressed: Bool = false) {
+    public init(image: NSImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .init()) {
         if let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
-            self.init(cgImage: cgImage, size: size, isCompressed: isCompressed)
+            self.init(cgImage: cgImage, size: size, encoder: encoder)
         } else {
-            self.init()
+            self.init(size: size, encoder: encoder)
         }
     }
 }
@@ -43,11 +52,11 @@ extension GraphicField {
 import UIKit
 
 extension GraphicField {
-    public init(image: UIImage, size: CGSize, isCompressed: Bool = false) {
+    public init(image: UIImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .init()) {
         if let cgImage = image.cgImage {
-            self.init(cgImage: cgImage, size: size, isCompressed: isCompressed)
+            self.init(cgImage: cgImage, size: size, encoder: encoder)
         } else {
-            self.init()
+            self.init(size: size, encoder: encoder)
         }
     }
 }
