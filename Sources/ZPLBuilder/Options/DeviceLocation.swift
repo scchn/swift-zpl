@@ -10,9 +10,9 @@ import Foundation
 /// Device location of object
 public enum DeviceLocation: String {
     /// DRAM
-    case R = "R"
+    case r = "R"
     /// Flash
-    case E = "E"
-    case B = "B"
-    case A = "A"
+    case e = "E"
+    case b = "B"
+    case a = "A"
 }
