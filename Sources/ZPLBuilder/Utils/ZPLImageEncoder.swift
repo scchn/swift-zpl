@@ -19,6 +19,9 @@ public struct ZPLImage {
 }
 
 public class ZPLImageEncoder {
+    /// The default encoder of ``GraphicField``.
+    public static let shared = ZPLImageEncoder()
+    
     private static let componentValueSize = 8
     
     public var isCompressed: Bool = false
@@ -67,7 +70,7 @@ public class ZPLImageEncoder {
         let bytesPerRow = width / Self.componentValueSize + (width.isMultiple(of: Self.componentValueSize) ? 0 : 1)
         let totalBytes = bytesPerRow * height
         
-        return ZPLImage(bytesPerRow: bytesPerRow, totalBytes:totalBytes, data: data)
+        return ZPLImage(bytesPerRow: bytesPerRow, totalBytes: totalBytes, data: data)
     }
     
     private func enumerateComponents(cgImage: CGImage, _ block: (Int, Int, String, Bool) -> Void) {
