@@ -86,9 +86,8 @@ ZPL {
 let image: UIImage = ...
 let labelWidth = 4 * 203
 let labelHeight = 6 * 203
-let imageEncoder = ZPLImageEncoder()
 
-imageEncoder.isCompressed = true
+ZPLImageEncoder.shared.isCompressed = true
 
 let zpl = ZPL {
     LabelHome(x: 0, y: 0)
@@ -98,14 +97,14 @@ let zpl = ZPL {
     let imageSize = ZPLGeometryUtils.size(aspectRatio: image.size, fillWidth: imageWidth)
     
     Field(x: 0, y: 0) {
-        GraphicField(image: image, size: imageSize, encoder: imageEncoder)
+        GraphicField(image: image, size: imageSize)
     }
     Field(x: imageWidth, y: 0) {
-        GraphicField(image: image, size: imageSize, encoder: imageEncoder)
+        GraphicField(image: image, size: imageSize)
     }
     Field(x: imageWidth, y: 0) {
         GraphicBox(
-            width: imageWidth, 
+            width: imageWidth,
             height: Int(imageSize.height),
             lineWidth: Int(min(imageSize.width, imageSize.height))
         )
