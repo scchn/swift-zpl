@@ -10,6 +10,6 @@ import Foundation
 public enum FontFormat: String {
     case fnt = "FNT"
     case ttf = "TTF"
-    /// `TTE` is only supported in firmware version V60.14.x, V50.14.x, or later.
+    /// `.tte` is only supported in firmware version V60.14.x, V50.14.x, or later.
     case tte = "TTE"
 }
