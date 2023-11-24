@@ -13,7 +13,8 @@ import CoreGraphics
 ///
 /// # Graphic Field
 public struct GraphicField: ZPLCommandConvertible {
-    public let encoder: ZPLImageEncoder
+    private let encoder: ZPLImageEncoder
+    
     public var cgImage: CGImage?
     public var size: CGSize?
     public var command: String {
