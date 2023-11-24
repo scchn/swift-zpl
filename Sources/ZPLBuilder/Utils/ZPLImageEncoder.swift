@@ -25,7 +25,7 @@ public class ZPLImageEncoder {
     private static let componentValueSize = 8
     
     public var isCompressed: Bool = false
-    public var blackThreshold = 383
+    public var whiteThreshold = 383
     
     public init() {
         
@@ -99,7 +99,7 @@ public class ZPLImageEncoder {
                 
                 componentValue <<= 1
                 
-                if sum <= blackThreshold {
+                if sum <= whiteThreshold {
                     componentValue += 1
                 }
                 
