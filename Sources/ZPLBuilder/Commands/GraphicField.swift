@@ -30,7 +30,7 @@ public struct GraphicField: ZPLCommandConvertible {
         self.encoder = encoder
     }
     
-    public init(cgImage: CGImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .shared) {
+    public init(cgImage: CGImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .default) {
         self.encoder = encoder
         self.cgImage = cgImage
         self.size = size
@@ -41,7 +41,7 @@ public struct GraphicField: ZPLCommandConvertible {
 import AppKit
 
 extension GraphicField {
-    public init(image: NSImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .shared) {
+    public init(image: NSImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .default) {
         if let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
             self.init(cgImage: cgImage, size: size, encoder: encoder)
         } else {
@@ -53,7 +53,7 @@ extension GraphicField {
 import UIKit
 
 extension GraphicField {
-    public init(image: UIImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .shared) {
+    public init(image: UIImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .default) {
         if let cgImage = image.cgImage {
             self.init(cgImage: cgImage, size: size, encoder: encoder)
         } else {

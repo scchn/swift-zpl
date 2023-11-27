@@ -87,7 +87,7 @@ let image: UIImage = ...
 let labelWidth = 4 * 203
 let labelHeight = 6 * 203
 
-ZPLImageEncoder.shared.isCompressed = true
+ZPLImageEncoder.default.isCompressed = true
 
 let zpl = ZPL {
     LabelHome(x: 0, y: 0)

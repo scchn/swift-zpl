@@ -20,7 +20,7 @@ public struct ZPLImage {
 
 public class ZPLImageEncoder {
     /// The default encoder of ``GraphicField``.
-    public static let shared = ZPLImageEncoder()
+    public static let `default` = ZPLImageEncoder()
     
     private static let componentValueSize = 8
     
