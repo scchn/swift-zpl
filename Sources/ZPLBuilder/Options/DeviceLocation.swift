@@ -15,4 +15,5 @@ public enum DeviceLocation: String {
     case e = "E"
     case b = "B"
     case a = "A"
+    case z = "Z"
 }
