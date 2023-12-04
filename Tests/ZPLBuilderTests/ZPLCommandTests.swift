@@ -37,4 +37,17 @@ class ZPLCommandTests: XCTestCase {
         let cmd2 = FieldHexadecimal(indicator: "\\", code: 0x7E)
         XCTAssertEqual(cmd2.command, "\\7E")
     }
+    
+    func test_use_font_name_to_call_font() {
+        let cmd = UseFontNameToCallFont(
+            deviceLocation: .e, 
+            orientation: .normal,
+            tableName: "A",
+            tableFormat: .fnt,
+            height: 40,
+            width: 30
+        )
+        
+        XCTAssertEqual("^A@N,40,30,E:A.FNT", cmd.command)
+    }
 }
