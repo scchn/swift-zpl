@@ -48,7 +48,7 @@ public struct PrintDirectoryLabel: ZPLCommandConvertible {
     public var `extension`: String
     
     public var command: String {
-        "^WD\(deviceLocation):\(objectName).\(`extension`)"
+        "^WD\(deviceLocation.rawValue):\(objectName).\(`extension`)"
     }
     
     /// Print Directory Label
