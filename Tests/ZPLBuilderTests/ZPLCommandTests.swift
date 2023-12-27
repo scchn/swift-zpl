@@ -50,4 +50,9 @@ class ZPLCommandTests: XCTestCase {
         
         XCTAssertEqual("^A@N,40,30,E:A.FNT", cmd.command)
     }
+    
+    func test_host_directory_list() {
+        let cmd = HostDirectoryList(deviceLocation: .e, objectName: "*", extension: "FNT")
+        XCTAssertEqual(cmd.command, "^HWE:*.FNT")
+    }
 }
