@@ -32,9 +32,9 @@ public struct FieldOrigin: ZPLCommandConvertible {
     public var justification: FieldJustification?
     public var command: String {
         if let justification {
-            "^FO\(x),\(y),\(justification.rawValue)"
+            return "^FO\(x),\(y),\(justification.rawValue)"
         } else {
-            "^FO\(x),\(y)"
+            return "^FO\(x),\(y)"
         }
     }
 }

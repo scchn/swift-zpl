@@ -30,9 +30,9 @@ public struct FieldOrientation: ZPLCommandConvertible {
     public var justification: FieldJustification?
     public var command: String {
         if let justification {
-            "^FW\(orientation.rawValue),\(justification.rawValue)"
+            return "^FW\(orientation.rawValue),\(justification.rawValue)"
         } else {
-            "^FW\(orientation.rawValue)"
+            return "^FW\(orientation.rawValue)"
         }
     }
     
