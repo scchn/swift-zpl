@@ -51,9 +51,9 @@ public struct FieldTypeset: ZPLCommandConvertible {
     public var justification: FieldJustification?
     public var command: String {
         if let justification {
-            "^FT\(x),\(y),\(justification.rawValue)"
+            return "^FT\(x),\(y),\(justification.rawValue)"
         } else {
-            "^FT\(x),\(y)"
+            return "^FT\(x),\(y)"
         }
     }
     

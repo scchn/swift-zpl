@@ -5,6 +5,7 @@
 //  Created by chen on 2023/11/12.
 //
 
+#if canImport(CoreGraphics)
 import XCTest
 @testable import ZPLBuilder
 
@@ -37,3 +38,4 @@ func makeCGImage(width: Int, height: Int) -> CGImage {
         .cgImage!
 #endif
 }
+#endif

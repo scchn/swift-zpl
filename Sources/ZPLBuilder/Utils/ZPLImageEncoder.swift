@@ -5,6 +5,7 @@
 //  Created by chen on 2023/11/18.
 //
 
+#if canImport(CoreGraphics)
 import Foundation
 import CoreGraphics
 import OSLog
@@ -32,15 +33,19 @@ public class ZPLImageEncoder {
     }
     
     public func encode(cgImage: CGImage, targetSize: CGSize?) -> ZPLImage? {
-        let width = if let width = targetSize?.width {
-            Int(width)
+        let width: Int
+        let height: Int
+        
+        if let targetWidth = targetSize?.width {
+            width = Int(targetWidth)
         } else {
-            cgImage.width
+            width = cgImage.width
         }
-        let height = if let height = targetSize?.height {
-            Int(height)
+        
+        if let targetHeight = targetSize?.height {
+            height = Int(targetHeight)
         } else {
-            cgImage.height
+            height = cgImage.height
         }
         
         guard width > 0, height > 0, cgImage.width > 0, cgImage.height > 0 else {
@@ -110,10 +115,12 @@ public class ZPLImageEncoder {
                         componentValue <<= Self.componentValueSize - pos
                     }
                     
-                    let components = if componentValue <= 15 {
-                        "0" + String(componentValue, radix: 16, uppercase: true)
+                    let components: String
+                    
+                    if componentValue <= 15 {
+                        components = "0" + String(componentValue, radix: 16, uppercase: true)
                     } else {
-                        String(componentValue, radix: 16, uppercase: true)
+                        components = String(componentValue, radix: 16, uppercase: true)
                     }
                     
                     block(x, y, components, x == width - 1)
@@ -249,3 +256,4 @@ private let encodingTable: [Int: Character] = [
     380: "y",
     400: "z",
 ]
+#endif

@@ -53,6 +53,7 @@ class ZPLGeometryUtilsTests: XCTestCase {
         XCTAssertEqual(size4, CGSize(width: 20, height: labelHeight2))
     }
     
+#if canImport(AVFoundation)
     func test_fit_size() {
         let boundingSize = CGSize(width: 80, height: 80)
         
@@ -62,4 +63,5 @@ class ZPLGeometryUtilsTests: XCTestCase {
         let size2 = ZPLGeometryUtils.size(aspectRatio: imageAspectRatio2, fitBoundingSize: boundingSize)
         XCTAssertEqual(size2, CGSize(width: 80, height: 40))
     }
+#endif
 }
