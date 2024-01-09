@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import AVFoundation.AVGeometry
 
 public enum ZPLGeometryUtils {
     public static func size(aspectRatio: CGSize, fillWidth width: Int) -> CGSize {
@@ -18,7 +17,12 @@ public enum ZPLGeometryUtils {
         let width = Int(Double(height) * Double(aspectRatio.width) / Double(aspectRatio.height))
         return .init(width: width, height: height)
     }
-    
+}
+
+#if canImport(AVFoundation)
+import AVFoundation.AVGeometry
+
+extension ZPLGeometryUtils {
     public static func rect(aspectRatio: CGSize, insideRect boundingRect: CGRect) -> CGRect {
         AVMakeRect(aspectRatio: aspectRatio, insideRect: boundingRect)
     }
@@ -32,3 +36,4 @@ public enum ZPLGeometryUtils {
         rect(aspectRatio: aspectRatio, fitBoundingSize: boundingSize).size
     }
 }
+#endif

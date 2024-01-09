@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RegexBuilder
 
 /// The ^BY command is used to change the default values for the module width (in dots),
 /// the wide bar to narrow bar width ratio and the bar code height (in dots). 

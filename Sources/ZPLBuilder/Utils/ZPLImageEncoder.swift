@@ -5,6 +5,7 @@
 //  Created by chen on 2023/11/18.
 //
 
+#if canImport(CoreGraphics)
 import Foundation
 import CoreGraphics
 import OSLog
@@ -255,3 +256,4 @@ private let encodingTable: [Int: Character] = [
     380: "y",
     400: "z",
 ]
+#endif

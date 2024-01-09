@@ -5,6 +5,7 @@
 //  Created by chen on 2023/11/11.
 //
 
+#if canImport(CoreGraphics)
 import CoreGraphics
 
 /// The ^GF command allows you to download graphic field data directly into the printer’s bitmap storage area.
@@ -36,6 +37,7 @@ public struct GraphicField: ZPLCommandConvertible {
         self.size = size
     }
 }
+#endif
 
 #if canImport(AppKit)
 import AppKit
