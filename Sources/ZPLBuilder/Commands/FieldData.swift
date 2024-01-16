@@ -7,7 +7,13 @@
 
 import Foundation
 
-/// The ^FD command defines the data string for a field. 
+extension FieldData {
+#if canImport(CoreFoundation.CFString) && canImport(CoreFoundation.CFStringEncodingExt)
+    public static var big5Encoding: String.Encoding = .big5
+#endif
+}
+
+/// The ^FD command defines the data string for a field.
 /// The field data can be any printable character except those used as command prefixes (^ and ~).
 ///
 /// # Field Data
@@ -31,5 +37,13 @@ public struct FieldData: ZPLCommandConvertible {
     ///     * Any data string up to 3072 bytes
     public init(text: String) {
         self.text = text
+    }
+    
+    public init(text: String, encoding: String.Encoding, indicator: Character) {
+        self.text = text.data(using: encoding)?
+            .map {
+                String(format:"\(indicator)%02X", $0)
+            }
+            .joined() ?? ""
     }
 }

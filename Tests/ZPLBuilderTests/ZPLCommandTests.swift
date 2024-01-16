@@ -55,4 +55,15 @@ class ZPLCommandTests: XCTestCase {
         let cmd = HostDirectoryList(deviceLocation: .e, objectName: "*", extension: "FNT")
         XCTAssertEqual(cmd.command, "^HWE:*.FNT")
     }
+    
+#if canImport(CoreFoundation.CFString) && canImport(CoreFoundation.CFStringEncodingExt)
+    func test_field_data() {
+        let cmd = FieldData(text: "TEST哈囉ㄏㄚˋ啦", encoding: FieldData.big5Encoding, indicator: "_")
+        
+        XCTAssertEqual(
+            "^FD_54_45_53_54_AB_A2_C5_6F_A3_7E_A3_AB_A3_BF_B0_D5",
+            cmd.command
+        )
+    }
+#endif
 }
