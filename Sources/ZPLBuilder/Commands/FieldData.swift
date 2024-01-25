@@ -9,7 +9,11 @@ import Foundation
 
 extension FieldData {
 #if canImport(CoreFoundation.CFString) && canImport(CoreFoundation.CFStringEncodingExt)
-    public static var big5Encoding: String.Encoding = .big5
+    public static var big5Encoding: String.Encoding {
+        let _encoding = CFStringEncoding(CFStringEncodings.big5.rawValue)
+        let encoding = CFStringConvertEncodingToNSStringEncoding(_encoding)
+        return .init(rawValue: encoding)
+    }
 #endif
 }
 
