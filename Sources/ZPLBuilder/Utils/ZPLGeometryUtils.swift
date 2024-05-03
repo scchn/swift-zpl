@@ -8,6 +8,19 @@
 import Foundation
 
 public enum ZPLGeometryUtils {
+    public static func rect(aspectRatio: CGSize, insideRect boundingRect: CGRect) -> CGRect {
+        makeRect(aspectRatio: aspectRatio, boundingRect: boundingRect)
+    }
+    
+    public static func rect(aspectRatio: CGSize, boundingSize: CGSize) -> CGRect {
+        let rect = CGRect(origin: .zero, size: boundingSize)
+        return makeRect(aspectRatio: aspectRatio, boundingRect: rect)
+    }
+    
+    public static func size(aspectRatio: CGSize, boundingSize: CGSize) -> CGSize {
+        rect(aspectRatio: aspectRatio, boundingSize: boundingSize).size
+    }
+    
     public static func size(aspectRatio: CGSize, fillWidth width: Int) -> CGSize {
         let height = Int(Double(width) * Double(aspectRatio.height) / Double(aspectRatio.width))
         return .init(width: width, height: height)
@@ -19,21 +32,19 @@ public enum ZPLGeometryUtils {
     }
 }
 
-#if canImport(AVFoundation)
-import AVFoundation.AVGeometry
-
-extension ZPLGeometryUtils {
-    public static func rect(aspectRatio: CGSize, insideRect boundingRect: CGRect) -> CGRect {
-        AVMakeRect(aspectRatio: aspectRatio, insideRect: boundingRect)
+private func makeRect(aspectRatio: CGSize, boundingRect: CGRect) -> CGRect {
+    let wMulti = boundingRect.width / aspectRatio.width
+    let hMulti = boundingRect.height / aspectRatio.height
+    var size = boundingRect.size
+    var origin = boundingRect.origin
+    
+    if hMulti < wMulti {
+        size.width = boundingRect.height / aspectRatio.height * aspectRatio.width
+        origin.x = boundingRect.midX - size.width / 2
+    } else if wMulti < hMulti {
+        size.height = boundingRect.width / aspectRatio.width * aspectRatio.height
+        origin.y = boundingRect.midY - size.height / 2
     }
     
-    public static func rect(aspectRatio: CGSize, fitBoundingSize boundingSize: CGSize) -> CGRect {
-        let rect = CGRect(origin: .zero, size: boundingSize)
-        return AVMakeRect(aspectRatio: aspectRatio, insideRect: rect)
-    }
-    
-    public static func size(aspectRatio: CGSize, fitBoundingSize boundingSize: CGSize) -> CGSize {
-        rect(aspectRatio: aspectRatio, fitBoundingSize: boundingSize).size
-    }
+    return .init(origin: origin, size: size)
 }
-#endif

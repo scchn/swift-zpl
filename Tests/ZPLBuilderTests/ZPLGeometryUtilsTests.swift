@@ -8,60 +8,37 @@
 import XCTest
 @testable import ZPLBuilder
 
-private let imageWidth1 = 20
-private let imageHeight1 = 40
-private let imageAspectRatio1 = CGSize(width: imageWidth1, height: imageHeight1)
-
-private let imageWidth2 = 40
-private let imageHeight2 = 20
-private let imageAspectRatio2 = CGSize(width: imageWidth2, height: imageHeight2)
+let image20X40 = CGSize(width: 20, height: 40)
+let image40X20 = CGSize(width: 40, height: 20)
 
 class ZPLGeometryUtilsTests: XCTestCase {
-    func test_fill_width() {
-        let labelWidth1 = 80
+    func test_long_label() {
+        let labelRect = CGRect(x: 10, y: 20, width: 40, height: 80)
         
-        let size1 = ZPLGeometryUtils.size(aspectRatio: imageAspectRatio1, fillWidth: labelWidth1)
-        XCTAssertEqual(size1, CGSize(width: labelWidth1, height: 160))
+        let r1 = ZPLGeometryUtils.rect(aspectRatio: image20X40, insideRect: labelRect)
+        XCTAssertEqual(r1, .init(x: 10, y: 20, width: 40, height: 80))
         
-        let size2 = ZPLGeometryUtils.size(aspectRatio: imageAspectRatio2, fillWidth: labelWidth1)
-        XCTAssertEqual(size2, CGSize(width: labelWidth1, height: 40))
-        
-        let labelWidth2 = 10
-        
-        let size3 = ZPLGeometryUtils.size(aspectRatio: imageAspectRatio1, fillWidth: labelWidth2)
-        XCTAssertEqual(size3, CGSize(width: labelWidth2, height: 20))
-        
-        let size4 = ZPLGeometryUtils.size(aspectRatio: imageAspectRatio2, fillWidth: labelWidth2)
-        XCTAssertEqual(size4, CGSize(width: labelWidth2, height: 5))
+        let r2 = ZPLGeometryUtils.rect(aspectRatio: image40X20, insideRect: labelRect)
+        XCTAssertEqual(r2, .init(x: 10, y: 50, width: 40, height: 20))
     }
     
-    func test_fill_height() {
-        let labelHeight1 = 80
+    func test_wide_label() {
+        let labelRect = CGRect(x: 10, y: 20, width: 80, height: 40)
         
-        let size1 = ZPLGeometryUtils.size(aspectRatio: imageAspectRatio1, fillHeight: labelHeight1)
-        XCTAssertEqual(size1, CGSize(width: 40, height: labelHeight1))
+        let r1 = ZPLGeometryUtils.rect(aspectRatio: image20X40, insideRect: labelRect)
+        XCTAssertEqual(r1, .init(x: 40, y: 20, width: 20, height: 40))
         
-        let size2 = ZPLGeometryUtils.size(aspectRatio: imageAspectRatio2, fillHeight: labelHeight1)
-        XCTAssertEqual(size2, CGSize(width: 160, height: labelHeight1))
-        
-        let labelHeight2 = 10
-        
-        let size3 = ZPLGeometryUtils.size(aspectRatio: imageAspectRatio1, fillHeight: labelHeight2)
-        XCTAssertEqual(size3, CGSize(width: 5, height: labelHeight2))
-        
-        let size4 = ZPLGeometryUtils.size(aspectRatio: imageAspectRatio2, fillHeight: labelHeight2)
-        XCTAssertEqual(size4, CGSize(width: 20, height: labelHeight2))
+        let r2 = ZPLGeometryUtils.rect(aspectRatio: image40X20, insideRect: labelRect)
+        XCTAssertEqual(r2, .init(x: 10, y: 20, width: 80, height: 40))
     }
     
-#if canImport(AVFoundation)
     func test_fit_size() {
-        let boundingSize = CGSize(width: 80, height: 80)
+        let labelRect = CGRect(x: 10, y: 20, width: 80, height: 80)
         
-        let size1 = ZPLGeometryUtils.size(aspectRatio: imageAspectRatio1, fitBoundingSize: boundingSize)
-        XCTAssertEqual(size1, CGSize(width: 40, height: 80))
+        let r1 = ZPLGeometryUtils.rect(aspectRatio: image20X40, insideRect: labelRect)
+        XCTAssertEqual(r1, CGRect(x: 30, y: 20, width: 40, height: 80))
         
-        let size2 = ZPLGeometryUtils.size(aspectRatio: imageAspectRatio2, fitBoundingSize: boundingSize)
-        XCTAssertEqual(size2, CGSize(width: 80, height: 40))
+        let r2 = ZPLGeometryUtils.rect(aspectRatio: image40X20, insideRect: labelRect)
+        XCTAssertEqual(r2, CGRect(x: 10, y: 40, width: 80, height: 40))
     }
-#endif
 }
