@@ -5,19 +5,7 @@
 //  Created by chen on 2023/11/18.
 //
 
-#if canImport(CoreGraphics)
 import Foundation
-import CoreGraphics
-import OSLog
-
-@available(macOS 11.0, iOS 14.0, *)
-private let logger = Logger(subsystem: "ZPLBuidler", category: "ZPLImageEncoder")
-
-public struct ZPLImage {
-    public var bytesPerRow: Int
-    public var totalBytes: Int
-    public var data: String
-}
 
 public class ZPLImageEncoder {
     /// The default encoder of ``GraphicField``.
@@ -32,79 +20,35 @@ public class ZPLImageEncoder {
         
     }
     
-    public func encode(cgImage: CGImage, targetSize: CGSize?) -> ZPLImage? {
-        let width: Int
-        let height: Int
-        
-        if let targetWidth = targetSize?.width {
-            width = Int(targetWidth)
-        } else {
-            width = cgImage.width
-        }
-        
-        if let targetHeight = targetSize?.height {
-            height = Int(targetHeight)
-        } else {
-            height = cgImage.height
-        }
-        
-        guard width > 0, height > 0, cgImage.width > 0, cgImage.height > 0 else {
-            if #available(macOS 11.0, iOS 14.0, *) {
-                logger.notice("Invalid image size or target size.")
-            }
-            return nil
-        }
-        guard let cgImage = width == cgImage.width && height == cgImage.height
-                ? cgImage
-                : cgImage.resized(width: width, height: height)
-        else {
-            if #available(macOS 11.0, iOS 14.0, *) {
-                logger.notice("Failed to resize image.")
-            }
-            return nil
-        }
-        guard let data = isCompressed ? makeCompressedData(cgImage: cgImage) : makeData(cgImage: cgImage),
+    public func encode(imageReader: ZPLImageReader) -> ZPLImage? {
+        guard let data = isCompressed ? makeCompressedData(imageReader: imageReader) : makeData(imageReader: imageReader),
               !data.isEmpty
         else {
-            if #available(macOS 11.0, iOS 14.0, *) {
-                logger.notice("Failed to encode image.")
-            }
             return nil
         }
         
-        let bytesPerRow = width / Self.componentValueSize + (width.isMultiple(of: Self.componentValueSize) ? 0 : 1)
-        let totalBytes = bytesPerRow * height
+        let bytesPerRow = imageReader.width / Self.componentValueSize + (imageReader.width.isMultiple(of: Self.componentValueSize) ? 0 : 1)
+        let totalBytes = bytesPerRow * imageReader.height
         
         return ZPLImage(bytesPerRow: bytesPerRow, totalBytes: totalBytes, data: data)
     }
     
-    private func enumerateComponents(cgImage: CGImage, _ block: (Int, Int, String, Bool) -> Void) {
-        guard let imageData = cgImage.dataProvider?.data,
-              let imagePtr = CFDataGetBytePtr(imageData)
-        else {
-            return
-        }
-        
-        let width = cgImage.width
-        let height = cgImage.height
-        let bytesPerPixel = cgImage.bitsPerPixel / 8
-        let bytesPerRow = cgImage.bytesPerRow
+    private func enumerateComponents(imageReader: ZPLImageReader, _ block: (Int, Int, String, Bool) -> Void) {
+        let width = imageReader.width
+        let height = imageReader.height
         
         for y in 0..<height {
-            let baseOffset = y * bytesPerRow
             var componentValue = 0
             var pos = 0
             
             for x in 0..<width {
-                let offset = baseOffset + (x * bytesPerPixel)
-                let r = Int(imagePtr[offset])
-                let g = Int(imagePtr[offset + 1])
-                let b = Int(imagePtr[offset + 2])
-                let sum = r + g + b
+                let color = Int(imageReader.getRed(x: x, y: y))
+                    + Int(imageReader.getGreen(x: x, y: y))
+                    + Int(imageReader.getBlue(x: x, y: y))
                 
                 componentValue <<= 1
                 
-                if sum <= whiteThreshold {
+                if color <= whiteThreshold {
                     componentValue += 1
                 }
                 
@@ -133,10 +77,10 @@ public class ZPLImageEncoder {
 }
 
 extension ZPLImageEncoder {
-    private func makeData(cgImage: CGImage) -> String? {
+    private func makeData(imageReader: ZPLImageReader) -> String? {
         var body = ""
         
-        enumerateComponents(cgImage: cgImage) { x, y, components, _ in
+        enumerateComponents(imageReader: imageReader) { x, y, components, _ in
             body.append(components)
         }
         
@@ -145,9 +89,9 @@ extension ZPLImageEncoder {
 }
 
 extension ZPLImageEncoder {
-    private func makeCompressedData(cgImage: CGImage) -> String? {
-        let divisable = cgImage.width.isMultiple(of: Self.componentValueSize)
-        let bytesPerRow = cgImage.width / Self.componentValueSize + (divisable ? 0 : 1)
+    private func makeCompressedData(imageReader: ZPLImageReader) -> String? {
+        let divisable = imageReader.width.isMultiple(of: Self.componentValueSize)
+        let bytesPerRow = imageReader.width / Self.componentValueSize + (divisable ? 0 : 1)
         let maxRepeatCount = bytesPerRow * 2
         var repeatCount = 1
         var aux: Character?
@@ -155,7 +99,7 @@ extension ZPLImageEncoder {
         var prevLine: [Character] = []
         var body: [Character] = []
         
-        enumerateComponents(cgImage: cgImage) { x, y, components, isEOL in
+        enumerateComponents(imageReader: imageReader) { x, y, components, isEOL in
             for component in components {
                 guard let _aux = aux else {
                     aux = component
@@ -256,4 +200,3 @@ private let encodingTable: [Int: Character] = [
     380: "y",
     400: "z",
 ]
-#endif

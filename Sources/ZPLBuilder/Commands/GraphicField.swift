@@ -16,25 +16,22 @@ import CoreGraphics
 public struct GraphicField: ZPLCommandConvertible {
     private let encoder: ZPLImageEncoder
     
-    public var cgImage: CGImage?
-    public var size: CGSize?
+    public var image: ZPLImageReader?
     public var command: String {
-        guard let cgImage,
-              let encoded = encoder.encode(cgImage: cgImage, targetSize: size)
+        guard let image = image, let encoded = encoder.encode(imageReader: image)
         else {
             return ""
         }
         return "^GFA,\(encoded.totalBytes),\(encoded.totalBytes),\(encoded.bytesPerRow),\(encoded.data)"
     }
     
-    private init(size: CGSize?, encoder: ZPLImageEncoder) {
+    private init(encoder: ZPLImageEncoder) {
         self.encoder = encoder
     }
     
-    public init(cgImage: CGImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .default) {
+    public init(imageReader: ZPLImageReader, encoder: ZPLImageEncoder = .default) {
         self.encoder = encoder
-        self.cgImage = cgImage
-        self.size = size
+        self.image = imageReader
     }
 }
 #endif
@@ -44,10 +41,12 @@ import AppKit
 
 extension GraphicField {
     public init(image: NSImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .default) {
-        if let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
-            self.init(cgImage: cgImage, size: size, encoder: encoder)
+        if let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil),
+           let image = ZPLCGImageReader(cgImage: cgImage, targetSize: size)
+        {
+            self.init(imageReader: image, encoder: encoder)
         } else {
-            self.init(size: size, encoder: encoder)
+            self.init(encoder: encoder)
         }
     }
 }
@@ -56,10 +55,12 @@ import UIKit
 
 extension GraphicField {
     public init(image: UIImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .default) {
-        if let cgImage = image.cgImage {
-            self.init(cgImage: cgImage, size: size, encoder: encoder)
+        if let cgImage = image.cgImage,
+           let image = ZPLCGImageReader(cgImage: cgImage, targetSize: size)
+        {
+            self.init(imageReader: image, encoder: encoder)
         } else {
-            self.init(size: size, encoder: encoder)
+            self.init(encoder: encoder)
         }
     }
 }
