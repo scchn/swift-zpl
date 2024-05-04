@@ -5,8 +5,7 @@
 //  Created by chen on 2023/11/11.
 //
 
-#if canImport(CoreGraphics)
-import CoreGraphics
+import Foundation
 
 /// The ^GF command allows you to download graphic field data directly into the printer’s bitmap storage area.
 /// This command follows the conventions for any other field, meaning a field orientation is included.
@@ -18,8 +17,7 @@ public struct GraphicField: ZPLCommandConvertible {
     
     public var image: ZPLImageReader?
     public var command: String {
-        guard let image = image, let encoded = encoder.encode(imageReader: image)
-        else {
+        guard let image = image, let encoded = encoder.encode(imageReader: image) else {
             return ""
         }
         return "^GFA,\(encoded.totalBytes),\(encoded.totalBytes),\(encoded.bytesPerRow),\(encoded.data)"
@@ -34,7 +32,6 @@ public struct GraphicField: ZPLCommandConvertible {
         self.image = imageReader
     }
 }
-#endif
 
 #if canImport(AppKit)
 import AppKit
