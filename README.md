@@ -25,6 +25,47 @@ print(zpl.string()) // ^XA^LH0,0^CFA,50,0^FO50,50^FDSwift ZPL^FS^XZ
 
 [Utilities](https://github.com/scchn/swift-zpl/tree/main/Sources/ZPLBuilder/Utils)
 
+# Commands
+
+|swift-zpl|ZPL|
+|-|-|
+|`BarcodeCode128`|`^BC` and `^FD`|
+|`BarcodeDefault`|`^BY`|
+|`BarcodeQR`|`^BQ` and `^FD`|
+|`ChangeAlphanumericDefaultFont`|`^CF`|
+|`ChangeInternationalEncoding`|`^CI`|
+|`Field`|`^FO` and `^FS`|
+|`FieldBlock`|`^FB`|
+|`FieldData`|`^FD`|
+|`FieldHexadecimal`|N/A|
+|`FieldHexadecimalIndicator`|`^FH`|
+|`FieldOrientation`|`^FW`|
+|`FieldOrigin`|`^FO`|
+|`FieldParameter`|`^FP`|
+|`FieldReversePrint`|`^FR`|
+|`FieldSeparator`|`^FS`|
+|`FieldTypeset`|`^FT`|
+|`FontIdentifier`|`^CW`|
+|`GraphicBox`|`^GB`|
+|`GraphicCircle`|`^GC`|
+|`GraphicDiagonalLine`|`^GD`|
+|`GraphicEllipse`|`^GE`|
+|`GraphicField`|`^GF`|
+|`GraphicSymbol`|`^GS` and `^FD`|
+|`HostDirectoryList`|`^HW`|
+|`Hyphen`|N/A|
+|`LabelHome`|`^LH`|
+|`LabelLength`|`^LL`|
+|`LabelReversePrint`|`^LR`|
+|`LabelShift`|`^LS`|
+|`PrintDirectoryLabel`|`^WD`|
+|`PrintWidth`|`^PW`|
+|`ScalableBitmappedFont`|`^A`|
+|`SelectEncodingTable`|`^SE`|
+|`SetDarkness`|`~SD`|
+|`TextBlock`|`^TB`|
+|`UseFontNameToCallFont`|`^A@`|
+
 # Examples
 
 ## Boxes
