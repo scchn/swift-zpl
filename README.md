@@ -29,42 +29,42 @@ print(zpl.string()) // ^XA^LH0,0^CFA,50,0^FO50,50^FDSwift ZPL^FS^XZ
 
 |swift-zpl|ZPL|
 |-|-|
-|`BarcodeCode128`|`^BC` and `^FD`|
-|`BarcodeDefault`|`^BY`|
-|`BarcodeQR`|`^BQ` and `^FD`|
-|`ChangeAlphanumericDefaultFont`|`^CF`|
-|`ChangeInternationalEncoding`|`^CI`|
-|`Field`|`^FO` and `^FS`|
-|`FieldBlock`|`^FB`|
-|`FieldData`|`^FD`|
-|`FieldHexadecimal`|N/A|
-|`FieldHexadecimalIndicator`|`^FH`|
-|`FieldOrientation`|`^FW`|
-|`FieldOrigin`|`^FO`|
-|`FieldParameter`|`^FP`|
-|`FieldReversePrint`|`^FR`|
-|`FieldSeparator`|`^FS`|
-|`FieldTypeset`|`^FT`|
-|`FontIdentifier`|`^CW`|
-|`GraphicBox`|`^GB`|
-|`GraphicCircle`|`^GC`|
-|`GraphicDiagonalLine`|`^GD`|
-|`GraphicEllipse`|`^GE`|
-|`GraphicField`|`^GF`|
-|`GraphicSymbol`|`^GS` and `^FD`|
-|`HostDirectoryList`|`^HW`|
-|`Hyphen`|N/A|
-|`LabelHome`|`^LH`|
-|`LabelLength`|`^LL`|
-|`LabelReversePrint`|`^LR`|
-|`LabelShift`|`^LS`|
-|`PrintDirectoryLabel`|`^WD`|
-|`PrintWidth`|`^PW`|
-|`ScalableBitmappedFont`|`^A`|
-|`SelectEncodingTable`|`^SE`|
-|`SetDarkness`|`~SD`|
-|`TextBlock`|`^TB`|
-|`UseFontNameToCallFont`|`^A@`|
+|[`BarcodeCode128`](/Sources/ZPLBuilder/Commands/BarcodeCode128.swift)|`^BC` and `^FD`|
+|[`BarcodeDefault`](/Sources/ZPLBuilder/Commands/BarcodeDefault.swift)|`^BY`|
+|[`BarcodeQR`](/Sources/ZPLBuilder/Commands/BarcodeQR.swift)|`^BQ` and `^FD`|
+|[`ChangeAlphanumericDefaultFont`](/Sources/ZPLBuilder/Commands/ChangeAlphanumericDefaultFont.swift)|`^CF`|
+|[`ChangeInternationalEncoding`](/Sources/ZPLBuilder/Commands/ChangeInternationalEncoding.swift)|`^CI`|
+|[`Field`](/Sources/ZPLBuilder/Commands/Field.swift)|`^FO` and `^FS`|
+|[`FieldBlock`](/Sources/ZPLBuilder/Commands/FieldBlock.swift)|`^FB`|
+|[`FieldData`](/Sources/ZPLBuilder/Commands/FieldData.swift)|`^FD`|
+|[`FieldHexadecimal`](/Sources/ZPLBuilder/Commands/FieldHexadecimal.swift)|N/A|
+|[`FieldHexadecimalIndicator`](/Sources/ZPLBuilder/Commands/FieldHexadecimalIndicator.swift)|`^FH`|
+|[`FieldOrientation`](/Sources/ZPLBuilder/Commands/FieldOrientation.swift)|`^FW`|
+|[`FieldOrigin`](/Sources/ZPLBuilder/Commands/FieldOrigin.swift)|`^FO`|
+|[`FieldParameter`](/Sources/ZPLBuilder/Commands/FieldParameter.swift)|`^FP`|
+|[`FieldReversePrint`](/Sources/ZPLBuilder/Commands/FieldReversePrint.swift)|`^FR`|
+|[`FieldSeparator`](/Sources/ZPLBuilder/Commands/FieldSeparator.swift)|`^FS`|
+|[`FieldTypeset`](/Sources/ZPLBuilder/Commands/FieldTypeset.swift)|`^FT`|
+|[`FontIdentifier`](/Sources/ZPLBuilder/Commands/FontIdentifier.swift)|`^CW`|
+|[`GraphicBox`](/Sources/ZPLBuilder/Commands/GraphicBox.swift)|`^GB`|
+|[`GraphicCircle`](/Sources/ZPLBuilder/Commands/GraphicCircle.swift)|`^GC`|
+|[`GraphicDiagonalLine`](/Sources/ZPLBuilder/Commands/GraphicDiagonalLine.swift)|`^GD`|
+|[`GraphicEllipse`](/Sources/ZPLBuilder/Commands/GraphicEllipse.swift)|`^GE`|
+|[`GraphicField`](/Sources/ZPLBuilder/Commands/GraphicField.swift)|`^GF`|
+|[`GraphicSymbol`](/Sources/ZPLBuilder/Commands/GraphicSymbol.swift)|`^GS` and `^FD`|
+|[`HostDirectoryList`](/Sources/ZPLBuilder/Commands/HostDirectoryList.swift)|`^HW`|
+|[`Hyphen`](/Sources/ZPLBuilder/Commands/Hyphen.swift)|N/A|
+|[`LabelHome`](/Sources/ZPLBuilder/Commands/LabelHome.swift)|`^LH`|
+|[`LabelLength`](/Sources/ZPLBuilder/Commands/LabelLength.swift)|`^LL`|
+|[`LabelReversePrint`](/Sources/ZPLBuilder/Commands/LabelReversePrint.swift)|`^LR`|
+|[`LabelShift`](/Sources/ZPLBuilder/Commands/LabelShift.swift)|`^LS`|
+|[`PrintDirectoryLabel`](/Sources/ZPLBuilder/Commands/PrintDirectoryLabel.swift)|`^WD`|
+|[`PrintWidth`](/Sources/ZPLBuilder/Commands/PrintWidth.swift)|`^PW`|
+|[`ScalableBitmappedFont`](/Sources/ZPLBuilder/Commands/ScalableBitmappedFont.swift)|`^A`|
+|[`SelectEncodingTable`](/Sources/ZPLBuilder/Commands/SelectEncodingTable.swift)|`^SE`|
+|[`SetDarkness`](/Sources/ZPLBuilder/Commands/SetDarkness.swift)|`~SD`|
+|[`TextBlock`](/Sources/ZPLBuilder/Commands/TextBlock.swift)|`^TB`|
+|[`UseFontNameToCallFont`](/Sources/ZPLBuilder/Commands/UseFontNameToCallFont.swift)|`^A@`|
 
 # Examples
 
