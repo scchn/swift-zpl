@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Hyphen: ZPLCommandConvertible {
+public enum Hyphen: ZPLCommandConvertible, CustomStringConvertible {
     /// \\&. Carriage return/line feed
     case `return`
     /// \\(*). Soft hyphen (word break with a dash)
@@ -23,5 +23,9 @@ public enum Hyphen: ZPLCommandConvertible {
         case .softHyphen(let c): return #"\\#(c)"#
         case .backslash:         return #"\\"#
         }
+    }
+    
+    public var description: String {
+        command
     }
 }
