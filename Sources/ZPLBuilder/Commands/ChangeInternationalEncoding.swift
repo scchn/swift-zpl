@@ -39,4 +39,13 @@ public struct ChangeInternationalEncoding: ZPLCommandConvertible {
         self.characterSet = characterSet
         self.remapping = remapping
     }
+    
+    /// Change International Font/Encoding
+    ///
+    /// - Parameters:
+    ///   - characterSet: Desired character set
+    public init(characterSet: UInt8) {
+        self.characterSet = characterSet
+        self.remapping = []
+    }
 }
