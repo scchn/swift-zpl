@@ -1,4 +1,4 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -9,7 +9,7 @@ let package = Package(
         .library(name: "ZPLBuilder", targets: ["ZPLBuilder"]),
     ],
     targets: [
-        .target(name: "ZPLBuilder"),
+        .target(name: "ZPLBuilder", swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]),
         .testTarget(name: "ZPLBuilderTests", dependencies: ["ZPLBuilder"]),
     ]
 )

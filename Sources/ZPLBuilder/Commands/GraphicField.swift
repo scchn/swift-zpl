@@ -27,7 +27,7 @@ public struct GraphicField: ZPLCommandConvertible {
         self.encoder = encoder
     }
     
-    public init(imageReader: ZPLImageReader, encoder: ZPLImageEncoder = .default) {
+    public init(imageReader: ZPLImageReader, encoder: ZPLImageEncoder = .init()) {
         self.encoder = encoder
         self.image = imageReader
     }
@@ -37,7 +37,7 @@ public struct GraphicField: ZPLCommandConvertible {
 import AppKit
 
 extension GraphicField {
-    public init(image: NSImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .default) {
+    public init(image: NSImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .init()) {
         if let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil),
            let image = ZPLCGImageReader(cgImage: cgImage, targetSize: size)
         {
@@ -51,7 +51,7 @@ extension GraphicField {
 import UIKit
 
 extension GraphicField {
-    public init(image: UIImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .default) {
+    public init(image: UIImage, size: CGSize? = nil, encoder: ZPLImageEncoder = .init()) {
         if let cgImage = image.cgImage,
            let image = ZPLCGImageReader(cgImage: cgImage, targetSize: size)
         {

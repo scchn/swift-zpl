@@ -7,18 +7,26 @@
 
 import Foundation
 
-public class ZPLImageEncoder {
-    /// The default encoder of ``GraphicField``.
-    public static let `default` = ZPLImageEncoder()
-    
+/// Encodes images into ZPL format.
+/// Supports both compressed and uncompressed encoding modes.
+public final class ZPLImageEncoder: Sendable {
     private static let componentValueSize = 8
     
-    public var isCompressed: Bool = false
-    public var whiteThreshold = 383
+    /// If true, uses compression for encoding; if false, generates uncompressed data.
+    public let isCompressed: Bool
     
-    public init() {
-        
+    /// Threshold for determining black/white pixels.
+    public let whiteThreshold: Int
+    
+    /// Initializes the encoder.
+    /// - Parameters:
+    ///   - isCompressed: Use compression mode. Default: false.
+    ///   - whiteThreshold: Black/white threshold. Default: 383 (50% gray).
+    public init(isCompressed: Bool = false, whiteThreshold: Int = 383) {
+        self.isCompressed = isCompressed
+        self.whiteThreshold = whiteThreshold
     }
+
     
     public func encode(imageReader: ZPLImageReader) -> ZPLImage? {
         guard let data = isCompressed ? makeCompressedData(imageReader: imageReader) : makeData(imageReader: imageReader),
